@@ -1,5 +1,6 @@
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class Main {
@@ -10,7 +11,14 @@ class Main {
 
         while (true) {
             System.out.println("Хотите поиграть в висилцу? \n 1. Да \n 2. Нет");
-            int menu = scanner.nextInt();
+
+            int menu;
+            try {
+                menu = scanner.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Для игры введите 1");
+                menu = 0;
+            }
             if (menu == 1) {
                 game.play(path, scanner);
             } else {

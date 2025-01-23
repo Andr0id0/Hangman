@@ -1,90 +1,66 @@
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.*;
 
 public class Game {
 
-    private String hiddenWord;
-    private int hiddenWordLength;
-    char[] playerWord;
-
-    private void chooseWord(Path path) {
-        List<String> words;
-        try {
-            words = Files.readAllLines(path);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        int length = words.size();
-        int index = (int) (Math.random() * length);
-        this.hiddenWord = words.get(index);
-        this.hiddenWordLength = hiddenWord.length();
-        playerWord = new char[hiddenWordLength];
-        for (int i = 0; i < hiddenWordLength; i++) {
+    public static void play() {
+        String secretWord = SelectWord.getWord();
+        int secretWordLength = secretWord.length();
+        char[] playerWord = new char[secretWordLength];
+        for (int i = 0; i < secretWordLength; i++) {
             playerWord[i] = '_';
         }
-    }
 
-    private void guessWord(Scanner scanner) {
-        Set<Character> set = new HashSet<>();
-        Set<Character> set2 = new HashSet<>();
+        Set<Character> errorChars = new HashSet<>();
         int errorCounter = 0;
         System.out.println(Picture.values()[errorCounter].picture);
         System.out.println("Количество ошибок : " + errorCounter);
         System.out.println(playerWord);
         while (errorCounter < 6) {
-            String s = scanner.next();
-            if (s.length() == 1) {
-                char c = s.charAt(0);
-                if (!(c >= 'а' && c <= 'я')) {
+            String input = Main.scanner.next();
+            if (input.length() == 1) {
+                char letter = input.charAt(0);
+                if (!(letter >= 'а' && letter <= 'я')) {
                     System.out.println("Вы ввели неправильный символ");
                     continue;
                 }
                 boolean isChange = false;
-                for (int l = 0; l < hiddenWordLength; l++) {
-                    if (hiddenWord.charAt(l) == c) {
-                        playerWord[l] = c;
+
+                for (int l = 0; l < secretWordLength; l++) {
+                    if (secretWord.charAt(l) == letter) {
+                        playerWord[l] = letter;
                         isChange = true;
                     }
                 }
-                if (!isChange && !set2.contains(c)) {
+                if (!isChange && !errorChars.contains(letter)) {
                     errorCounter++;
-                    set2.add(c);
+                    errorChars.add(letter);
                 }
-                set.add(c);
-                StringBuilder sb = new StringBuilder();
-                for (char chars : set2) {
-                    sb.append(chars);
-                    sb.append(", ");
+
+                StringBuilder errorCharsStringBuilder = new StringBuilder();
+                for (char chars : errorChars) {
+                    errorCharsStringBuilder.append(chars);
+                    errorCharsStringBuilder.append(", ");
                 }
-                String sc = "";
-                if (!sb.isEmpty()) {
-                    sc = sb.substring(0, sb.length() - 2);
+                String errorCharsString = "";
+                if (!errorCharsStringBuilder.isEmpty()) {
+                    errorCharsString = errorCharsStringBuilder.substring(0, errorCharsStringBuilder.length() - 2);
                 }
 
                 System.out.println(Picture.values()[errorCounter].picture);
-                System.out.println("Количество ошибок : " + errorCounter + "     неподходящие буквы : " + sc);
+                System.out.println("Количество ошибок : " + errorCounter + "     неподходящие буквы : " + errorCharsString);
                 System.out.println(playerWord);
-                if (Arrays.equals(playerWord, hiddenWord.toCharArray())) {
-                    return;
+                if (Arrays.equals(playerWord, secretWord.toCharArray())) {
+                    break;
                 }
 
             } else {
                 System.out.println("Вы ввели болше одной буквы");
             }
         }
-    }
-
-
-    public void play(Path path, Scanner scanner) {
-        chooseWord(path);
-        guessWord(scanner);
-        if (Arrays.equals(playerWord, hiddenWord.toCharArray())) {
-            System.out.println("Победа");
+        if (Arrays.equals(playerWord, secretWord.toCharArray())) {
+            System.out.println("Победа!!!!!");
         } else {
-            System.out.println("Поражение, загаднанное слово --> " + hiddenWord);
+            System.out.println("Поражение, загаднанное слово --> " + secretWord);
         }
     }
-
 }

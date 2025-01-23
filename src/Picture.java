@@ -1,5 +1,5 @@
 public enum Picture {
-    PICTURE0(0, "          ________\n" +
+    PICTURE0("          ________\n" +
             "          |/     |\n" +
             "          |     \n" +
             "          |      \n" +
@@ -10,7 +10,7 @@ public enum Picture {
             "          |\n" +
             "        __|________\n" +
             "        |         |"),
-    PICTURE1(1, "          ________\n" +
+    PICTURE1("          ________\n" +
             "          |/     |\n" +
             "          |     (_)\n" +
             "          |    \n" +
@@ -21,7 +21,7 @@ public enum Picture {
             "          |\n" +
             "        __|________\n" +
             "        |         |"),
-    PICTURE2(2, "          ________\n" +
+    PICTURE2("          ________\n" +
             "          |/     |\n" +
             "          |     (_)\n" +
             "          |      | \n" +
@@ -32,7 +32,7 @@ public enum Picture {
             "          |\n" +
             "        __|________\n" +
             "        |         |"),
-    PICTURE3(3, "          ________\n" +
+    PICTURE3("          ________\n" +
             "          |/     |\n" +
             "          |     (_)\n" +
             "          |     _| \n" +
@@ -43,7 +43,7 @@ public enum Picture {
             "          |\n" +
             "        __|________\n" +
             "        |         |"),
-    PICTURE4(4, "          ________\n" +
+    PICTURE4("          ________\n" +
             "          |/     |\n" +
             "          |     (_)\n" +
             "          |     _|_\n" +
@@ -54,7 +54,7 @@ public enum Picture {
             "          |\n" +
             "        __|________\n" +
             "        |         |"),
-    PICTURE5(5, "          ________\n" +
+    PICTURE5("          ________\n" +
             "          |/     |\n" +
             "          |     (_)\n" +
             "          |     _|_\n" +
@@ -65,7 +65,7 @@ public enum Picture {
             "          |\n" +
             "        __|________\n" +
             "        |         |"),
-    PICTURE6(6, "          ________\n" +
+    PICTURE6("          ________\n" +
             "          |/     |\n" +
             "          |     (_)\n" +
             "          |     _|_\n" +
@@ -78,10 +78,8 @@ public enum Picture {
             "        |         |");
 
     public String picture;
-    public int stage;
 
-    Picture(int stage, String picture) {
-        this.stage = stage;
+    Picture(String picture) {
         this.picture = picture;
     }
 }

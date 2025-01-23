@@ -1,29 +1,21 @@
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 class Main {
+    static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
-        Path path = Paths.get("resources/words.txt");
-        Scanner scanner = new Scanner(System.in);
-        Game game = new Game();
 
         while (true) {
-            System.out.println("Хотите поиграть в висилцу? \n 1. Да \n 2. Нет");
+            System.out.println("Хотите поиграть в висилцу? \n д (Да)  \n н (Нет)");
+            String menu = scanner.nextLine();
 
-            int menu;
-            try {
-                menu = scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Для игры введите 1");
-                menu = 0;
-            }
-            if (menu == 1) {
-                game.play(path, scanner);
+            if (menu.equals("д")) {
+                Game.play();
+            } else if (menu.equals("н")) {
+                scanner.close();
+                System.exit(0);
             } else {
-                System.out.println("конец игры");
-                break;
+                System.out.println("Введите 'д' или 'н'");
             }
         }
     }

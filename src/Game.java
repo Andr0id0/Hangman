@@ -37,6 +37,10 @@ public class Game {
             String s = scanner.next();
             if (s.length() == 1) {
                 char c = s.charAt(0);
+                if (!(c >= 'а' && c <= 'я')) {
+                    System.out.println("Вы ввели неправильный символ");
+                    continue;
+                }
                 boolean isChange = false;
                 for (int l = 0; l < hiddenWordLength; l++) {
                     if (hiddenWord.charAt(l) == c) {
@@ -44,13 +48,9 @@ public class Game {
                         isChange = true;
                     }
                 }
-
-
-                if (!isChange || set.contains(c)) {
+                if (!isChange && !set2.contains(c)) {
                     errorCounter++;
-                    if (!set.contains(c)) {
-                        set2.add(c);
-                    }
+                    set2.add(c);
                 }
                 set.add(c);
                 StringBuilder sb = new StringBuilder();

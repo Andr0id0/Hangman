@@ -4,7 +4,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class SelectWord {
+public class HiddenWordProvider {
 
     private static final Path PATH = Paths.get("resources/words.txt");
 
@@ -17,6 +17,9 @@ public class SelectWord {
         }
         int length = words.size();
         int index = (int) (Math.random() * length);
+        while (words.get(index).length() < 6) {
+            index = (int) (Math.random() * length);
+        }
         return words.get(index);
     }
 }

@@ -5,15 +5,16 @@ class Main {
 
     public static void main(String[] args) {
 
-        while (true) {
+        boolean gameIsOn = true;
+        while (gameIsOn) {
             System.out.println("Хотите поиграть в висилцу? \n д (Да)  \n н (Нет)");
-            String menu = scanner.nextLine();
+            String menu = scanner.next();
 
             if (menu.equals("д")) {
                 Game.play();
             } else if (menu.equals("н")) {
                 scanner.close();
-                System.exit(0);
+                gameIsOn = false;
             } else {
                 System.out.println("Введите 'д' или 'н'");
             }
